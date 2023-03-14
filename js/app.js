@@ -1,4 +1,5 @@
-const loadPhones = async(searchText, dataLimit) =>{
+const loadPhones = async (searchText, dataLimit) => {
+    toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
 
     const res = await fetch(url);
@@ -52,7 +53,7 @@ const displayPhones = (phones, dataLimit) => {
 }
 
 const processSearch = (dataLimit) =>{
-    toggleSpinner(true);
+   
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadPhones(searchText, dataLimit);
