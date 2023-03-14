@@ -3,7 +3,7 @@ const loadPhones = async(searchText, dataLimit) =>{
 
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.data.length);
+    // console.log(data.data.length);
     displayPhones(data.data, dataLimit);
 }
 
@@ -31,7 +31,7 @@ const displayPhones = (phones, dataLimit) => {
     }
     // display all phones
     phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone.slug);
         const phoneDiv  = document.createElement('div');
         phoneDiv.classList.add('col');
         phoneDiv.innerHTML = `
@@ -92,20 +92,24 @@ const loadPhoneDetails = async id =>{
     const res = await fetch(url);
     const data = await res.json();
     displayPhoneDetails(data.data);
+    // console.log(data.data);
 }
 
 const displayPhoneDetails = phone =>{
-    // console.log(phone);
-    const modalTitle = document.getElementById('phoneDetailModalLabel');
+    console.log(phone);
+    let modalTitle = document.getElementById('phoneDetailModalLabel');
     modalTitle.innerText = phone.name;
-    const phoneDetails = document.getElementById('phone-details');
+    let phoneDetails = document.getElementById('phone-details');
+    phoneDetails.innerHTML = '';
+    let child = document.createElement('div');
     // console.log(phone.mainFeatures.sensors[0]);
-    phoneDetails.innerHTML = `
-        <p>Release Date: ${phone.releaseDate}</p>
-        <p>Storage: ${phone.mainFeatures}</p>
-        <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
+    child.innerHTML += `
+        <p>Release Date: ${phone.releaseDate ? phone.releaseDate : 'no data'}</p>
+        <p>Storage: ${phone.mainFeatures.storage ? phone.mainFeatures.storage : 'no data'}</p>
+        <p>Others: ${phone.others ? 'Bluetooth '+phone.others.Bluetooth : 'No Bluetooth Information'}</p>
         <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
     `
+    phoneDetails.appendChild(child);
 }
 
 
